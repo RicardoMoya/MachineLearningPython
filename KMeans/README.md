@@ -1,3 +1,4 @@
-# Expectation-Maximization
+# K-Means
 
-Algoritmo expectation-maximization (esperanza-maximización).
+El método de los K-Means.
+
