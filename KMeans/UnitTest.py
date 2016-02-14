@@ -2,30 +2,47 @@
 __author__ = 'RicardoMoya'
 
 import unittest
-from Elemento import Elemento
+import numpy as np
+import KMeans
+from Point import Point
 from Cluster import Cluster
 
 
 class MyTestCase(unittest.TestCase):
-    global elemento
-    elemento = Elemento([2, 2])
+    global DATASET
+    DATASET = "./dataSet/Datos1.txt"
+    global point
+    point = Point([2, 2])
     global cluster
-    cluster = Cluster([Elemento([1, 1]), Elemento([1, 3]), Elemento([3, 1]), Elemento([3, 3])])
+    cluster = Cluster([Point([1, 1]), Point([1, 3]), Point([3, 1]), Point([3, 3])])
 
-    # Dimensión del elemento
-    def test_dimension_elemento(self):
-        self.assertEqual(elemento.dimension, 2)
-        self.assertNotEquals(elemento.dimension, 1)
+    # Check point dimension
+    def testDimensionPoint(self):
+        self.assertEqual(point.dimension, 2)
+        self.assertNotEquals(point.dimension, 1)
 
-    # Dimensión del cluster
-    def test_dimension_cluster(self):
+    # Check cluster dimension
+    def testDimensionCluster(self):
         self.assertEquals(cluster.dimension, 2)
         self.assertNotEquals(cluster.dimension, 3)
 
-    def test_centroide_cluster(self):
-        centroide = cluster.centroide
-        self.assertEquals(centroide[0], 2)
-        self.assertEquals(centroide[1], 2)
+    # Check centroid calculation
+    def testCentroideCluster(self):
+        centroid = cluster.centroid
+        self.assertEquals(centroid[0], 2)
+        self.assertEquals(centroid[1], 2)
+
+    # Check read data set file 
+    def testReadFilePoints(self):
+        points = KMeans.dataSet2ListPoints(DATASET)
+        self.assertTrue(len(points) > 0)
+        self.assertTrue(points[0].dimension == 2)
+
+    def testEuclideanDistance(self):
+        x = np.array([1, 0])
+        y = np.array([0, 0])
+        self.assertEquals(KMeans.calculateEuclideanDistance(x, y), 1.0)
+        
 
 
 if __name__ == '__main__':

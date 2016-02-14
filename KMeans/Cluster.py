@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from twisted.words.test.test_irc import pop
+
 __author__ = 'RicardoMoya'
 
 import numpy as np
@@ -6,32 +8,47 @@ import numpy as np
 
 class Cluster:
     '''
-    Clase que representa a un cluster formado por uno o más elementos
+    Class to represent a Cluster: set of points and their centroid
     '''
-    def __init__(self, elementos):
-        if len(elementos) == 0:
-            raise Exception("Un Cluster no puede tener 0 elementos")
+
+    def __init__(self, points):
+        if len(points) == 0:
+            raise Exception("Cluster cannot have 0 Points")
         else:
-            self.elementos = elementos
-            self.dimension = elementos[0].dimension
+            self.points = points
+            self.dimension = points[0].dimension
 
-        # Comprobamos que todos los elementos del cluster tienen la misma dimensión
-        for ele in elementos:
-            if ele.dimension != self.dimension:
-                raise Exception("El elemento %s tiene dimensión %d distinta a la del resto de elementos %d") % (
-                    ele, len(ele), self.dimension)
+        # Check that all elements of the cluster have the same dimension
+        for p in points:
+            if p.dimension != self.dimension:
+                raise Exception("Point %s has dimension %d different with %d from the rest of points") % (
+                    p, len(p), self.dimension)
 
-        # Calculamos el centroide del Cluster
-        self.centroide = self.calculoCentroide()
+        # Calculate Centroid
+        self.centroid = self.calculateCentroid()
+        self.converge = False
 
-    def calculoCentroide(self):
+    def calculateCentroid(self):
         '''
-        Método que calcula el centroide del Cluster, haciendo la média de cada una de las coordenadas de los elementos
-        :return: Centroide del cluster
+        Method that calculates the centroid of the Cluster, calculating the average of each of the coordinates of the points
+        :return: Centroid of cluster
         '''
-        sumCoordenadas = np.zeros(self.dimension)
-        for elem in self.elementos:
-            for i, x in enumerate(elem.coordenadas):
-                sumCoordenadas[i] += x
+        sumCoordinates = np.zeros(self.dimension)
+        for p in self.points:
+            for i, x in enumerate(p.coordinates):
+                sumCoordinates[i] += x
 
-        return (sumCoordenadas / len(self.elementos)).tolist()
+        return (sumCoordinates / len(self.points)).tolist()
+
+    def updateCluster(self, points):
+        oldCentroid = self.centroid
+        self.points = points
+        self.centroid = self.calculateCentroid()
+        self.converge = np.array_equal(oldCentroid, self.centroid)
+
+    def __repr__(self):
+        cluster = 'Centroid: ' + str(self.centroid) + '\nDimension: ' + str(self.dimension)
+        for p in self.points:
+            cluster += '\n' + str(p)
+
+        return cluster + '\n\n'
