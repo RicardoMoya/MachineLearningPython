@@ -3,6 +3,7 @@ __author__ = 'RicardoMoya'
 
 import random
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.spatial import distance
 from Point import Point
 from Cluster import Cluster
@@ -11,6 +12,7 @@ DATASET1 = "./dataSet/Datos1.txt"
 DATASET2 = "./dataSet/Datos2.txt"
 NUMCLUSTERS = 3
 ITERATIONS = 1000
+COLORS = ['red', 'blue', 'green', 'yellow', 'black', 'pink', 'violet', 'brown', 'cyan', 'magenta']
 
 
 def dataSet2ListPoints(dirDataSet):
@@ -82,6 +84,16 @@ def kMeans(dataSet, numClusters, iterations):
         print '\t\tNum Points in Cluster %d' %len(c.points)
         print '\t\tCentroid: %s' %str(c.centroid)
 
+    # Plot Final results
+    plt.plot()
+    for i,c in enumerate(clusters):
+        # plot points
+        x, y =zip(*[p.coordinates for p in c.points])
+        plt.plot(x, y, '.', color=COLORS[i])
+        # plot centroids
+        plt.plot(c.centroid[0], c.centroid[1], 'o', color=COLORS[i], markeredgecolor='k', markersize=10)
+    plt.show()
+
 
 if __name__ == '__main__':
-    kMeans(DATASET1, NUMCLUSTERS, ITERATIONS)
+    kMeans(DATASET2, NUMCLUSTERS, ITERATIONS)

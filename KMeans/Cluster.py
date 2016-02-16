@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from twisted.words.test.test_irc import pop
-
 __author__ = 'RicardoMoya'
 
 import numpy as np
