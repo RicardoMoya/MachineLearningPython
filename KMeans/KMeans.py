@@ -3,14 +3,19 @@ __author__ = 'RicardoMoya'
 
 import random
 import numpy as np
+import matplotlib.pyplot as plt
 from scipy.spatial import distance
 from Point import Point
 from Cluster import Cluster
 
-DATASET1 = "./dataSet/Datos1.txt"
-DATASET2 = "./dataSet/Datos2.txt"
-NUMCLUSTERS = 3
+DATASET1 = "../dataSet/DSclustering/DS_3Clusters_999Points.txt"
+DATASET2 = "../dataSet/DSclustering/DS2_3Clusters_999Points.txt"
+DATASET3 = "../dataSet/DSclustering/DS_5Clusters_10000Points.txt"
+DATASET4 = "../dataSet/DSclustering/DS_7Clusters_100000Points.txt"
+NUM_CLUSTERS = 3
 ITERATIONS = 1000
+COLORS = ['red', 'blue', 'green', 'yellow', 'gray', 'pink', 'violet', 'brown',
+          'cyan', 'magenta']
 
 
 def dataSet2ListPoints(dirDataSet):
@@ -35,6 +40,32 @@ def getNearestCluster(clusters, point):
     for i, c in enumerate(clusters):
         dist[i] = distance.euclidean(point.coordinates, c.centroid)
     return np.argmin(dist)
+
+
+def printClustersStatus(itCounter, clusters):
+    print '\nITERATION %d' % itCounter
+    for i,c in enumerate(clusters):
+        print '\tCentroid Cluster %d: %s' %(i+1,str(c.centroid))
+
+
+def printResults(clusters):
+    print '\n\nFINAL RESULT:'
+    for i, c in enumerate(clusters):
+        print '\tCluster %d' % (i + 1)
+        print '\t\tNumber Points in Cluster %d' % len(c.points)
+        print '\t\tCentroid: %s' % str(c.centroid)
+
+
+def plotResults(clusters):
+    plt.plot()
+    for i, c in enumerate(clusters):
+        # plot points
+        x, y = zip(*[p.coordinates for p in c.points])
+        plt.plot(x, y, 'w', markerfacecolor=COLORS[i], marker='.')
+        # plot centroids
+        plt.plot(c.centroid[0], c.centroid[1], 'o', color=COLORS[i],
+                 markeredgecolor='k', markersize=6)
+    plt.show()
 
 
 def kMeans(dataSet, numClusters, iterations):
@@ -63,25 +94,21 @@ def kMeans(dataSet, numClusters, iterations):
             c.updateCluster(newPointsCluster[i])
 
         # Check that converge all Clusters
-        convergeAll = [c.converge for c in clusters]
-        converge = convergeAll.count(False) == 0
+        converge = [c.converge for c in clusters].count(False) == 0
 
         # Increment counter and delete lists of clusters points
         itCounter += 1
         newPointsCluster = [[] for i in range(numClusters)]
 
         # Print clusters status
-        print '\nITERATION %d' %itCounter
-        for c in clusters:
-            print '\t%s' %str(c.centroid)
+        printClustersStatus(itCounter, clusters)
 
     # Print final result
-    print '\n\nFINAL RESULT:'
-    for i,c in enumerate(clusters):
-        print '\tCluster %d' %(i+1)
-        print '\t\tNum Points in Cluster %d' %len(c.points)
-        print '\t\tCentroid: %s' %str(c.centroid)
+    printResults(clusters)
+
+    # Plot Final results
+    plotResults(clusters)
 
 
 if __name__ == '__main__':
-    kMeans(DATASET1, NUMCLUSTERS, ITERATIONS)
+    kMeans(DATASET1, NUM_CLUSTERS, ITERATIONS)

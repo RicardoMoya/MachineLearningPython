@@ -12,4 +12,5 @@ class Point:
         self.dimension = len(coordinates)
 
     def __repr__(self):
-        return 'Coordinates: ' + str(self.coordinates) + ' -> Dimension: ' + str(self.dimension)
+        return 'Coordinates: ' + str(self.coordinates) + \
+               ' -> Dimension: ' + str(self.dimension)

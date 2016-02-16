@@ -10,13 +10,17 @@ from Cluster import Cluster
 
 class MyTestCase(unittest.TestCase):
     global DATASET
-    DATASET = "./dataSet/Datos1.txt"
+    DATASET = "../dataSet/DSclustering/DS_3Clusters_999Points.txt"
     global point
-    point = Point([2, 2])
+    point = Point(np.array([2, 2]))
+    global listPoints
+    listPoints = [Point(np.array([1, 1])), Point(np.array([1, 3])),
+                  Point(np.array([3, 1])), Point(np.array([3, 3]))]
     global cluster
-    cluster = Cluster([Point([1, 1]), Point([1, 3]), Point([3, 1]), Point([3, 3])])
+    cluster = Cluster(listPoints)
 
     # Check point dimension
+
     def testDimensionPoint(self):
         self.assertEqual(point.dimension, 2)
         self.assertNotEquals(point.dimension, 1)
@@ -38,11 +42,21 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(len(points) > 0)
         self.assertTrue(points[0].dimension == 2)
 
-    def testEuclideanDistance(self):
-        x = np.array([1, 0])
-        y = np.array([0, 0])
-        self.assertEquals(KMeans.calculateEuclideanDistance(x, y), 1.0)
-        
+    # Check nearest Clsuter
+    def testGetNearestCluster(self):
+        self.assertEquals(KMeans.getNearestCluster(
+            [cluster, Cluster([Point(np.array([8, 8]))])], point), 0)
+
+    # Check cluster's method
+    def testCluster(self):
+        cluster = Cluster([point])
+        self.assertEquals(cluster.dimension, 2)
+        self.assertFalse(cluster.converge)
+        np.testing.assert_array_equal(cluster.centroid, np.array([2, 2]))
+        cluster.updateCluster(listPoints)
+        self.assertEquals(cluster.dimension, 2)
+        self.assertTrue(cluster.converge)
+        np.testing.assert_array_equal(cluster.centroid, np.array([2, 2]))
 
 
 if __name__ == '__main__':

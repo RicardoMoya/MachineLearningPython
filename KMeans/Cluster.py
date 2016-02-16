@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from twisted.words.test.test_irc import pop
-
 __author__ = 'RicardoMoya'
 
 import numpy as np
@@ -21,8 +19,9 @@ class Cluster:
         # Check that all elements of the cluster have the same dimension
         for p in points:
             if p.dimension != self.dimension:
-                raise Exception("Point %s has dimension %d different with %d from the rest of points") % (
-                    p, len(p), self.dimension)
+                raise Exception(
+                    "Point %s has dimension %d different with %d from the rest of points") % (
+                      p, len(p), self.dimension)
 
         # Calculate Centroid
         self.centroid = self.calculateCentroid()
@@ -30,7 +29,8 @@ class Cluster:
 
     def calculateCentroid(self):
         '''
-        Method that calculates the centroid of the Cluster, calculating the average of each of the coordinates of the points
+        Method that calculates the centroid of the Cluster, calculating
+        the average of each of the coordinates of the points
         :return: Centroid of cluster
         '''
         sumCoordinates = np.zeros(self.dimension)
@@ -41,13 +41,19 @@ class Cluster:
         return (sumCoordinates / len(self.points)).tolist()
 
     def updateCluster(self, points):
+        '''
+        Calculate the new centroid and check if converge
+        :param points: list of new points
+        :return: updated cluster
+        '''
         oldCentroid = self.centroid
         self.points = points
         self.centroid = self.calculateCentroid()
         self.converge = np.array_equal(oldCentroid, self.centroid)
 
     def __repr__(self):
-        cluster = 'Centroid: ' + str(self.centroid) + '\nDimension: ' + str(self.dimension)
+        cluster = 'Centroid: ' + str(self.centroid) + '\nDimension: ' + str(
+            self.dimension)
         for p in self.points:
             cluster += '\n' + str(p)
 
