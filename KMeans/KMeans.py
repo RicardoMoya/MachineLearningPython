@@ -44,8 +44,8 @@ def getNearestCluster(clusters, point):
 
 def printClustersStatus(itCounter, clusters):
     print '\nITERATION %d' % itCounter
-    for i,c in enumerate(clusters):
-        print '\tCentroid Cluster %d: %s' %(i+1,str(c.centroid))
+    for i, c in enumerate(clusters):
+        print '\tCentroid Cluster %d: %s' % (i + 1, str(c.centroid))
 
 
 def printResults(clusters):
