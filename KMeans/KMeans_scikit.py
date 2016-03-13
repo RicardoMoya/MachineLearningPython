@@ -11,7 +11,7 @@ DATASET2 = "../dataSet/DSclustering/DS2_3Clusters_999Points.txt"
 DATASET3 = "../dataSet/DSclustering/DS_5Clusters_10000Points.txt"
 DATASET4 = "../dataSet/DSclustering/DS_7Clusters_100000Points.txt"
 NUM_CLUSTERS = 3
-MAX_ITERATIONS = 1000
+MAX_ITERATIONS = 10
 INITIALIZE_CLUSTERS = ['k-means++', 'random']
 CONVERGENCE_TOLERANCE = 0.001
 NUM_THREADS = 8
@@ -45,12 +45,12 @@ def plotResults(centroids, numClusterPoints, points):
         pointsInCluster = [boolP == nc for boolP in numClusterPoints]
         for i, p in enumerate(pointsInCluster):
             if bool(p):
-                plt.plot(points[i][0], points[i][1], 'w',
-                         markerfacecolor=COLORS[nc], marker='.')
+                plt.plot(points[i][0], points[i][1], linestyle='None',
+                         color=COLORS[nc], marker='.')
         # plot centroids
         centroid = centroids[nc]
         plt.plot(centroid[0], centroid[1], 'o', markerfacecolor=COLORS[nc],
-                 markeredgecolor='k', markersize=6)
+                 markeredgecolor='k', markersize=10)
     plt.show()
 
 
@@ -63,7 +63,7 @@ def kMeans(dataSet, numClusters, maxIterations, initCluster, tolerance,
     kmeans = KMeans(n_clusters=numClusters, max_iter=maxIterations,
                     init=initCluster, tol=tolerance, n_jobs=numThreads)
 
-    # set points for clustering
+    # Calculate Kmeans
     kmeans.fit(points)
 
     # Obtain centroids and number Cluster of each point

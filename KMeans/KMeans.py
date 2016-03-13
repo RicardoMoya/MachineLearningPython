@@ -61,10 +61,10 @@ def plotResults(clusters):
     for i, c in enumerate(clusters):
         # plot points
         x, y = zip(*[p.coordinates for p in c.points])
-        plt.plot(x, y, 'w', markerfacecolor=COLORS[i], marker='.')
+        plt.plot(x, y, linestyle='None', color=COLORS[i], marker='.')
         # plot centroids
         plt.plot(c.centroid[0], c.centroid[1], 'o', color=COLORS[i],
-                 markeredgecolor='k', markersize=6)
+                 markeredgecolor='k', markersize=10)
     plt.show()
 
 
