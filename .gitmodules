@@ -1,0 +1,6 @@
+[submodule "KMeans_Python"]
+	path = KMeans_Python
+	url = https://github.com/RicardoMoya/KMeans_Python
+[submodule "ExpectationMaximization_Python"]
+	path = ExpectationMaximization_Python
+	url = https://github.com/RicardoMoya/ExpectationMaximization_Python
