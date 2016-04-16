@@ -4,3 +4,6 @@
 [submodule "ExpectationMaximization_Python"]
 	path = ExpectationMaximization_Python
 	url = https://github.com/RicardoMoya/ExpectationMaximization_Python
+[submodule "OptimalNumClusters"]
+	path = OptimalNumClusters
+	url = https://github.com/RicardoMoya/OptimalNumClusters
