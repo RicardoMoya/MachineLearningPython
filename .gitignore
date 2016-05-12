@@ -9,7 +9,6 @@
 *.mf
 
 # Intellij
-.idea/
 *.iml
 *.iws
 
@@ -20,7 +19,6 @@
 log/
 target/
 
-target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -35,7 +33,6 @@ release.properties
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-.idea/
 
 # C extensions
 *.so
@@ -89,15 +86,12 @@ coverage.xml
 docs/_build/
 
 # PyBuilder
-target/
 
 
 ##########################
 ### Proyectos en xcode ###
 ##########################
 # Xcode
-.DS_Store
-build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -123,9 +117,6 @@ Pods
 
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
 /build
 
 #built application files
@@ -148,19 +139,6 @@ local.properties
 # Windows thumbnail db
 Thumbs.db
 
-# OSX files
-.DS_Store
-
-# Eclipse project files
-.classpath
-.project
-
-# Android Studio
-*.iml
-.idea
-#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
-.gradle
-build/
 
 #NDK
 obj/
