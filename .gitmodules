@@ -7,3 +7,6 @@
 [submodule "OptimalNumClusters"]
 	path = OptimalNumClusters
 	url = https://github.com/RicardoMoya/OptimalNumClusters
+[submodule "LinearRegression_Python"]
+	path = LinearRegression_Python
+	url = https://github.com/RicardoMoya/LinearRegression_Python
