@@ -1,7 +1,7 @@
-from sklearn.datasets.samples_generator import make_blobs
-
 # -*- coding: utf-8 -*-
 __author__ = 'RicardoMoya'
+
+from sklearn.datasets.samples_generator import make_blobs
 
 THEORETICAL_CENTROIDS = [[-1, 3], [0, 0], [0, 6], [2, 3], [4, 5], [5, 2],
                          [7, 5]]
