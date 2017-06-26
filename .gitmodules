@@ -10,3 +10,6 @@
 [submodule "LinearRegression_Python"]
 	path = LinearRegression_Python
 	url = https://github.com/RicardoMoya/LinearRegression_Python
+[submodule "Knn_Python"]
+        path = Knn_Python
+        url = https://github.com/RicardoMoya/Knn_Python
