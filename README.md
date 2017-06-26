@@ -12,3 +12,4 @@ $ pip install -U scikit-learn
 ```
 
 Con la opción '-U' nos actualiza a la última versión de la librería aunque ya la tengamos instalada.
+# Knn_Python
